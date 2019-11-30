@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fcdaeseung.dao.IMaterialDao;
@@ -33,9 +34,12 @@ public class FcRestController {
 	}
 	
 	@GetMapping(path="/material")
-	public Map<String, Object> material(){
+	public Map<String, Object> material(
+			@RequestParam(name="styleId") String styleId
+	)
+	{
 		Map<String, Object> result = new HashMap<>();
-		List<Material> materialList = materialDao.listMaterial();
+		List<Material> materialList = materialDao.listMaterialForStyleId(styleId);
 		if(materialList == null) {
 			result.put("resultSuccese",false);
 			return result;

@@ -8,5 +8,5 @@ import com.fcdaeseung.dto.Material;
 
 @Mapper
 public interface IMaterialDao {
-	public List<Material> listMaterial();
+	public List<Material> listMaterialForStyleId(String styleId);
 }

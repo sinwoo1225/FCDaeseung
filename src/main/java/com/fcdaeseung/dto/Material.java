@@ -1,8 +1,12 @@
 package com.fcdaeseung.dto;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
 import lombok.Data;
 
 @Data
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Material {
 	String matreial_id;
     String material_name;

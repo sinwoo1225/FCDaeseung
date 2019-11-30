@@ -4,8 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.fcdaeseung.dao.IMaterialDao">
-	<select id="listMaterial" resultType="com.fcdaeseung.dto.Material">
-		select * from material;
+	<select id="listMaterialForStyleId" resultType="com.fcdaeseung.dto.Material">
+		select * from material where material.material_id in (select material_id from materialList where materialList.style_id = #{param1})
 	</select>
 </mapper>
 

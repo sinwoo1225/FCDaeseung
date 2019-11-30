@@ -1,0 +1,53 @@
+.mycontainer{
+    width:100%;
+    margin-right:0px;
+    margin-left:0px;
+    padding:10px 30px;
+    box-sizing: border-box;
+}
+.noResult{
+    margin-bottom: 0px;
+    font-size:16px;
+    text-align: center;
+}
+.left_nav80{
+    float:left;
+    width:80%;
+}
+.right_nav20{
+    width:20%;
+    float: right;
+    text-align: right;
+}
+.width100{
+    width:100%;
+}
+.width60{
+    box-sizing: content-box;
+    width:60%;
+}
+.width40{
+    box-sizing: border-box;
+    margin-left:20px;
+    width:36%;
+}
+.margin-left_5{
+    margin-left: 5px;
+}
+.margin-top_20{
+    margin-top:20px;
+}
+.margin-top_10{
+    margin-top:10px;
+}
+
+.table th, .table td{
+    padding: .30rem;
+}
+
+th{
+    font-size:14px;
+}
+td{
+    font-size:12px;
+}
