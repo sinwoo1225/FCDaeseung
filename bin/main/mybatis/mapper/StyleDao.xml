@@ -4,8 +4,47 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.fcdaeseung.dao.IStyleDao">
-	<select id="listStyle" resultType="com.fcdaeseung.dto.Style">
-		select * from style
+	<select id="listStyle" resultType="com.fcdaeseung.dto.Style" resultMap="Style">
+		select * 
+		from style s 
+			left join correspondent c 
+			on s.correspondent_id = c.correspondent_id 
+	</select>
+	
+	<resultMap type="com.fcdaeseung.dto.Correspondent" id="Correspondent">
+		<result column="correspondent_id" property="correspondent_id"/>
+		<result column="correspondent_name" property="correspondent_name"/>
+		<result column="correspondent_code" property="correspondent_code"/>
+	</resultMap>
+	
+	<resultMap type="com.fcdaeseung.dto.Style" id="Style">
+		<result column="style_id" property="style_id"/>
+		<result column="style_name" property="style_name"/>
+		<result column="correspondent_id" property="correspondent_id"/>
+		<result column="style_orderdate" property="style_orderdate"/>
+		<result column="style_deliverydate" property="style_deliverydate"/>
+		<result column="style_season" property="style_season"/>
+		<result column="style_quantity" property="style_quantity"/>
+		<result column="style_price" property="style_price"/>
+		<result column="style_workplace" property="style_workplace"/>
+		<result column="style_inputname" property="style_inputname"/>
+		<result column="style_inputdate" property="style_inputdate"/>
+		<collection property="correspondent" resultMap="Correspondent"/>
+	</resultMap>
+
+	<select id="searchListStyle" parameterType="com.fcdaeseung.dto.Style" resultMap="Style">
+		select * 
+		from style s 
+			left join correspondent c 
+			on s.correspondent_id = c.correspondent_id 
+		where style_id like #{style_id} 
+		or ( 
+				style_name like #{style_name} 
+				or correspondent_name like '${correspondent}' 
+				or style_season like #{style_season}
+				or style_inputname like #{style_inputname} 
+				or style_workplace like #{style_workplace}
+			)
 	</select>
 </mapper>
 

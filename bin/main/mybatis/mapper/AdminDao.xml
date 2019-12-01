@@ -5,7 +5,9 @@
 
 <mapper namespace="com.fcdaeseung.dao.IAdminDao">
 	<select id="loginCheck" resultType="com.fcdaeseung.dto.Admin">
-		select * from admin where adminId like #{param1} and password like #{param2};
+		select * 
+		from admin 
+		where adminId like #{param1} and password like #{param2};
 	</select>
 </mapper>
 

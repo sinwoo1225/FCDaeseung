@@ -8,10 +8,10 @@ import lombok.Data;
 @Data
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Material {
-	String matreial_id;
-    String material_name;
-    String material_color;
-    String material_size;
-    int material_price;
-    String material_unit; 
+	private String material_id;
+	private String material_name;
+	private String material_color;
+	private String material_size;
+	private int material_price;
+	private String material_unit; 
 }

@@ -45,9 +45,17 @@
     padding: .30rem;
 }
 
+.table__dataList > tr:hover{
+    background-color: #dfe6e9;
+}
+
 th{
-    font-size:14px;
+    font-size:12px;
 }
 td{
     font-size:12px;
+}
+
+.table__dataList  td{
+    font-size:10px;
 }

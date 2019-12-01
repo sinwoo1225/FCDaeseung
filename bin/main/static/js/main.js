@@ -1,9 +1,20 @@
 const styleTable = document.getElementById("styleTable");
 const materialTable = document.getElementById("materialTable");
 
-let selectedStyleId = 'MUOWD421';
+const inquiryBtn = document.getElementById("inquiryBtn");
+const resetBtn = document.getElementById("resetBtn");
+const inquiryInputs = document.querySelectorAll("#inquiryInputTable > tbody > tr > td > input ");
+const style_id = document.querySelector("input[name=style_id]");
+const style_name = document.querySelector("input[name=style_name]");
+const style_season = document.querySelector("input[name=style_season]");
+const style_inputname = document.querySelector("input[name=style_inputname]");
+const correspondent_name = document.querySelector("input[name=correspondent_name]");
+const style_workplace = document.querySelector("input[name=style_workplace]");
+const style_orderdate = document.querySelector("input[name=style_orderdate]");
+const style_deliverydate = document.querySelector("input[name=style_deliverydate]");
 
 const renderStyle = data => {
+  styleTable.querySelector("tbody").innerHTML='';
   if (data.resultSuccese !== true || data.length < 1) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
@@ -13,7 +24,7 @@ const renderStyle = data => {
     h3.classList.add("noResult");
     tr.append(td);
     td.append(h3);
-    styleTable.append(tr);
+    styleTable.querySelector("tbody").append(tr);
     return;
   }
   data.styleList.forEach((element, index) => {
@@ -41,7 +52,7 @@ const renderStyle = data => {
 
     td_styleId.innerText = element.style_id;
     td_styleName.innerText = element.style_name;
-    td_correspondentId.innerText = element.correspondent_id;
+    td_correspondentId.innerText = element.correspondent.correspondent_name;
     td_styleOrderdate.innerText = element.style_orderdate;
     td_styleDeliverydate.innerText = element.style_deliverydate;
     td_styleSeason.innerText = element.style_season;
@@ -62,11 +73,13 @@ const renderStyle = data => {
     tr.append(td_styleWorkplace);
     tr.append(td_styleInputname);
     tr.append(td_styleInputdate);
-    styleTable.append(tr);
+    tr.addEventListener("click",handleClickStyleRow,true);
+    styleTable.querySelector("tbody").append(tr);
   });
 };
 
 const renderMaterial = data =>{
+  materialTable.querySelector("tbody").innerHTML='';
   if (data.resultSuccese !== true || data.length < 1) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
@@ -76,7 +89,7 @@ const renderMaterial = data =>{
     h3.classList.add("noResult");
     tr.append(td);
     td.append(h3);
-    materialTable.append(tr);
+    materialTable.querySelector("tbody").append(tr);
     return;
   }
 
@@ -112,13 +125,50 @@ const renderMaterial = data =>{
     tr.append(td_materialPrice);
     tr.append(td_materialUnit);
 
-    materialTable.append(tr);
+    materialTable.querySelector("tbody").append(tr);
   });
 }
 
+const handleClickStyleRow = (e) => {
+  if(e.target.nodeName === 'TD'){
+    const childs = e.target.parentNode.childNodes;
+    getMeterialByStyleId(childs[2].innerText);
+  }
+}
+
+const getReqParams = () =>{
+  const result = {};
+  result.style_id = style_id.value.trim();
+  result.style_name =style_name.value.trim();
+  result.style_season = style_season.value.trim();
+  result.style_inputname = style_inputname.value.trim();
+  result.correspondent_name = correspondent_name.value.trim();
+  result.style_workplace = style_workplace.value.trim();
+  result.style_orderdate = style_orderdate.value.trim();
+  result.style_deliverydate =  style_orderdate.value.trim();
+  return result;
+}
+
+const validate = (data) => {
+  let result = false;
+  Object.keys(data).forEach((key)=>{
+    if(data[key].trim() !== '' || data[key].trim().length !== 0)
+      result = true;
+  });
+  return result;
+}
+
 const getStyle = () => {
+  const reqParams = getReqParams();
+  let URL =``;
+  
+  if(!validate(reqParams))
+    URL = `http://localhost:8080/style/all`;
+  else
+    URL = `http://localhost:8080/style?style_id=${reqParams.style_id}&style_name=${reqParams.style_name}&style_workplace=${reqParams.style_workplace}&style_inputname=${reqParams.style_inputname}&style_season=${reqParams.style_season}&correspondent_name=${reqParams.correspondent_name}`; 
+
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", `http://localhost:8080/style`);
+  xhr.open("GET", URL);
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       const resJson = JSON.parse(xhr.responseText);
@@ -128,9 +178,9 @@ const getStyle = () => {
   xhr.send();
 };
 
-const getMeterialByStyleId = () =>{
+const getMeterialByStyleId = (id) =>{
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", `http://localhost:8080/material?styleId=${selectedStyleId}`);
+  xhr.open("GET", `http://localhost:8080/material?styleId=${id}`);
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       const resJson = JSON.parse(xhr.responseText);
@@ -140,5 +190,20 @@ const getMeterialByStyleId = () =>{
   xhr.send();
 }
 
-getStyle();
-getMeterialByStyleId();
+const resetInquiryInputs = (e) => {
+  inquiryInputs.forEach(e=>{
+    e.value = '';
+  })
+}
+
+const handleClickInquiryBtn = e => { 
+  getStyle();
+  resetInquiryInputs();
+}
+
+const init = () => {
+  inquiryBtn.addEventListener("click",handleClickInquiryBtn);
+  resetBtn.addEventListener("click",resetInquiryInputs);
+}
+
+init();

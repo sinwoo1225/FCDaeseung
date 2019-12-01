@@ -5,7 +5,12 @@
 
 <mapper namespace="com.fcdaeseung.dao.IMaterialDao">
 	<select id="listMaterialForStyleId" resultType="com.fcdaeseung.dto.Material">
-		select * from material where material.material_id in (select material_id from materialList where materialList.style_id = #{param1})
+		select * from material 
+		where material.material_id in 
+			(select material_id 
+			 from materialList 
+			 where materialList.style_id = #{param1}
+			 )
 	</select>
 </mapper>
 
