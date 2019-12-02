@@ -3,18 +3,32 @@ const materialTable = document.getElementById("materialTable");
 
 const inquiryBtn = document.getElementById("inquiryBtn");
 const resetBtn = document.getElementById("resetBtn");
-const inquiryInputs = document.querySelectorAll("#inquiryInputTable > tbody > tr > td > input ");
+const inquiryInputs = document.querySelectorAll(
+  "#inquiryInputTable > tbody > tr > td > input "
+);
+
+const styleTableAllCheckbox = document.querySelector(
+  "#styleTable > thead input[type=checkbox]"
+);
+const materialTableAllcheckbox = document.querySelector(
+  "#materialTable > thead input[type=checkbox]"
+);
+
 const style_id = document.querySelector("input[name=style_id]");
 const style_name = document.querySelector("input[name=style_name]");
 const style_season = document.querySelector("input[name=style_season]");
 const style_inputname = document.querySelector("input[name=style_inputname]");
-const correspondent_name = document.querySelector("input[name=correspondent_name]");
+const correspondent_name = document.querySelector(
+  "input[name=correspondent_name]"
+);
 const style_workplace = document.querySelector("input[name=style_workplace]");
 const style_orderdate = document.querySelector("input[name=style_orderdate]");
-const style_deliverydate = document.querySelector("input[name=style_deliverydate]");
+const style_deliverydate = document.querySelector(
+  "input[name=style_deliverydate]"
+);
 
 const renderStyle = data => {
-  styleTable.querySelector("tbody").innerHTML='';
+  styleTable.querySelector("tbody").innerHTML = "";
   if (data.resultSuccese !== true || data.length < 1) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
@@ -44,7 +58,7 @@ const renderStyle = data => {
     const td_styleInputname = document.createElement("td");
     const td_styleInputdate = document.createElement("td");
 
-    td_listNum.innerText = index+1;
+    td_listNum.innerText = index + 1;
     checkBox.setAttribute("type", "checkbox");
     td_checkBox.append(checkBox);
     tr.append(td_listNum);
@@ -73,13 +87,14 @@ const renderStyle = data => {
     tr.append(td_styleWorkplace);
     tr.append(td_styleInputname);
     tr.append(td_styleInputdate);
-    tr.addEventListener("click",handleClickStyleRow,true);
+
+    tr.addEventListener("click", handleClickStyleRow);
     styleTable.querySelector("tbody").append(tr);
   });
 };
 
-const renderMaterial = data =>{
-  materialTable.querySelector("tbody").innerHTML='';
+const renderMaterial = data => {
+  materialTable.querySelector("tbody").innerHTML = "";
   if (data.resultSuccese !== true || data.length < 1) {
     const tr = document.createElement("tr");
     const td = document.createElement("td");
@@ -104,8 +119,8 @@ const renderMaterial = data =>{
     const td_materialSize = document.createElement("td");
     const td_materialPrice = document.createElement("td");
     const td_materialUnit = document.createElement("td");
-    
-    td_listNum.innerText = index+1;
+
+    td_listNum.innerText = index + 1;
     checkBox.setAttribute("type", "checkbox");
     td_checkBox.append(checkBox);
     tr.append(td_listNum);
@@ -124,48 +139,67 @@ const renderMaterial = data =>{
     tr.append(td_materialSize);
     tr.append(td_materialPrice);
     tr.append(td_materialUnit);
-
+    tr.addEventListener("click", handleClickMaterialRow);
     materialTable.querySelector("tbody").append(tr);
   });
-}
+};
 
-const handleClickStyleRow = (e) => {
-  if(e.target.nodeName === 'TD'){
-    const childs = e.target.parentNode.childNodes;
-    getMeterialByStyleId(childs[2].innerText);
+const handleClickMaterialRow = e => {
+  const childs = e.target.parentNode.childNodes;
+  const focusedCheckbox = childs[1].querySelector("input[type=checkbox]");
+  focusedCheckbox.checked = focusedCheckbox.checked ? false : true;
+
+  if (!focusedCheckbox.checked) {
+    e.target.parentNode.classList.remove("backgroundcolor_selectedrow");
+  } else {
+    e.target.parentNode.classList.add("backgroundcolor_selectedrow");
   }
-}
+};
 
-const getReqParams = () =>{
+const handleClickStyleRow = e => {
+  if (e.target.nodeName === "TD") {
+    const childs = e.target.parentNode.childNodes;
+    const focusedCheckbox = childs[1].querySelector("input[type=checkbox]");
+    focusedCheckbox.checked = focusedCheckbox.checked ? false : true;
+
+    if (!focusedCheckbox.checked) {
+      materialTable.querySelector("tbody").innerHTML = "";
+      e.target.parentNode.classList.remove("backgroundcolor_selectedrow");
+    } else {
+      e.target.parentNode.classList.add("backgroundcolor_selectedrow");
+      getMeterialByStyleId(childs[2].innerText);
+    }
+  }
+};
+
+const getReqParams = () => {
   const result = {};
   result.style_id = style_id.value.trim();
-  result.style_name =style_name.value.trim();
+  result.style_name = style_name.value.trim();
   result.style_season = style_season.value.trim();
   result.style_inputname = style_inputname.value.trim();
   result.correspondent_name = correspondent_name.value.trim();
   result.style_workplace = style_workplace.value.trim();
   result.style_orderdate = style_orderdate.value.trim();
-  result.style_deliverydate =  style_orderdate.value.trim();
+  result.style_deliverydate = style_orderdate.value.trim();
   return result;
-}
+};
 
-const validate = (data) => {
+const validate = data => {
   let result = false;
-  Object.keys(data).forEach((key)=>{
-    if(data[key].trim() !== '' || data[key].trim().length !== 0)
-      result = true;
+  Object.keys(data).forEach(key => {
+    if (data[key].trim() !== "" || data[key].trim().length !== 0) result = true;
   });
   return result;
-}
+};
 
 const getStyle = () => {
   const reqParams = getReqParams();
-  let URL =``;
-  
-  if(!validate(reqParams))
-    URL = `http://localhost:8080/style/all`;
+  let URL = ``;
+
+  if (!validate(reqParams)) URL = `http://localhost:8080/style/all`;
   else
-    URL = `http://localhost:8080/style?style_id=${reqParams.style_id}&style_name=${reqParams.style_name}&style_workplace=${reqParams.style_workplace}&style_inputname=${reqParams.style_inputname}&style_season=${reqParams.style_season}&correspondent_name=${reqParams.correspondent_name}`; 
+    URL = `http://localhost:8080/style?style_id=${reqParams.style_id}&style_name=${reqParams.style_name}&style_workplace=${reqParams.style_workplace}&style_inputname=${reqParams.style_inputname}&style_season=${reqParams.style_season}&correspondent_name=${reqParams.correspondent_name}`;
 
   const xhr = new XMLHttpRequest();
   xhr.open("GET", URL);
@@ -178,7 +212,7 @@ const getStyle = () => {
   xhr.send();
 };
 
-const getMeterialByStyleId = (id) =>{
+const getMeterialByStyleId = id => {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", `http://localhost:8080/material?styleId=${id}`);
   xhr.onreadystatechange = function() {
@@ -188,22 +222,43 @@ const getMeterialByStyleId = (id) =>{
     }
   };
   xhr.send();
-}
+};
 
-const resetInquiryInputs = (e) => {
-  inquiryInputs.forEach(e=>{
-    e.value = '';
-  })
-}
+const resetInquiryInputs = e => {
+  inquiryInputs.forEach(e => {
+    e.value = "";
+  });
+};
 
-const handleClickInquiryBtn = e => { 
+const handleClickInquiryBtn = e => {
   getStyle();
   resetInquiryInputs();
-}
+};
+
+const selectAllStyleTable = e => {
+  const checkboxes = document.querySelectorAll(
+    "#styleTable > tbody > tr > td > input[type=checkbox]"
+  );
+  checkboxes.forEach(e => {
+    e.checked = styleTableAllCheckbox.checked;
+  });
+};
+
+const selectAllMaterialTable = () => {
+  const checkboxes = document.querySelectorAll(
+    "#materialTable > tbody > tr > td > input[type=checkbox]"
+  );
+  checkboxes.forEach(e => {
+    e.checked = materialTableAllcheckbox.checked;
+  });
+};
 
 const init = () => {
-  inquiryBtn.addEventListener("click",handleClickInquiryBtn);
-  resetBtn.addEventListener("click",resetInquiryInputs);
-}
+  inquiryBtn.addEventListener("click", handleClickInquiryBtn);
+  resetBtn.addEventListener("click", resetInquiryInputs);
+  styleTableAllCheckbox.addEventListener("click", selectAllStyleTable);
+  materialTableAllcheckbox.addEventListener("click", selectAllMaterialTable);
+  getStyle();
+};
 
 init();

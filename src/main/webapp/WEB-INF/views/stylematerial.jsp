@@ -1,9 +1,9 @@
- <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!-- Style -->
  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,7 +28,7 @@ color:white;
 
 </head>
  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
- <a class="nav3" id="aa" >½ºÅ¸ÀÏ-ÀÚÀç µî·Ï</a></nav>
+ <a class="nav3" id="aa" >ìŠ¤íƒ€ì¼-ìžìž¬ ë“±ë¡</a></nav>
 <body>
 <center>
 
@@ -40,77 +40,77 @@ color:white;
   <tr>
    
   
-   <td><b>½ºÅ¸ÀÏ¸í</b></td>
+   <td><b>ìŠ¤íƒ€ì¼ëª…</b></td>
    <td align=left>
     <input type=text name=pmodel>
    </td>
-     <td><b>ÀÚÀç´Ü°¡</b></td>
+     <td><b>ìžìž¬ë‹¨ê°€</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
   </tr>
   <tr>
-   <td><b>¹ÙÀÌ¾î</b></td>
+   <td><b>ë°”ì´ì–´</b></td>
    <td align=left>
     <input type=text name=pcode>
    </td>
  
-   <td><b>¿À´õÀÏ</b></td>
+   <td><b>ì˜¤ë”ì¼</b></td>
    <td align=left>
     <input type=text name=pcompany>
    </td>  
   </tr>
   <tr>
-   <td><b>³³±âÀÏ</b></td>
+   <td><b>ë‚©ê¸°ì¼</b></td>
    <td align=left>
     <input type=text name=pimage>
    </td>
   
-   <td><b>½ÃÁð</b></td>
+   <td><b>ì‹œì¦Œ</b></td>
    <td align=left>
     <input type=text name=price>
    </td>
   </tr>
   <tr>
-   <td><b>¼ö·®</b></td>
+   <td><b>ìˆ˜ëŸ‰</b></td>
    <td align=left>
     <input type=text name=pspec>
    </td>
   
-   <td><b>´Ü°¡</b></td>
+   <td><b>ë‹¨ê°€</b></td>
    <td align=left>
     <input type=text name=pspec>
    </td>
   </tr>
   <tr>
-   <td><b>ÀÛ¾÷Àå</b></td>
+   <td><b>ìž‘ì—…ìž¥</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
   
-   <td><b>ÀÛ¼ºÀÚ</b></td>
+   <td><b>ìž‘ì„±ìž</b></td>
    <td align=left>
      <input type=text name=pspec>
    </td>
   </tr>
   <tr>
-   <td><b>ÀÚÀçÄÚµå</b></td>
+   <td><b>ìžìž¬ì½”ë“œ</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
   
-   <td><b>ÀÚÀçÀÌ¸§</b></td>
+   <td><b>ìžìž¬ì´ë¦„</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
   </tr>
    <tr>
-   <td><b>ÄÃ·¯</b></td>
+   <td><b>ì»¬ëŸ¬</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
  
-   <td><b>»çÀÌÁî</b></td>
+   <td><b>ì‚¬ì´ì¦ˆ</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
@@ -118,7 +118,7 @@ color:white;
    <tr>
  
   
-   <td><b>´ÜÀ§</b></td>
+   <td><b>ë‹¨ìœ„</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
@@ -127,8 +127,8 @@ color:white;
  
   <tr>
    <td colspan=2 align="center">
-    <button type="button" class="btn btn-info">µî·Ï</button>
-    <button class="btn btn-danger" onclick="window.close()">Ãë¼Ò</button>
+    <button type="button" class="btn btn-info">ë“±ë¡</button>
+    <button class="btn btn-danger" onclick="window.close()">ì·¨ì†Œ</button>
    <td>
    </td>
    </td>

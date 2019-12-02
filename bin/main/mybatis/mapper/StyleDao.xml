@@ -32,18 +32,18 @@
 		<collection property="correspondent" resultMap="Correspondent"/>
 	</resultMap>
 
-	<select id="searchListStyle" parameterType="com.fcdaeseung.dto.Style" resultMap="Style">
+	<select id="searchListStyle" parameterType="hashmap" resultMap="Style">
 		select * 
 		from style s 
 			left join correspondent c 
 			on s.correspondent_id = c.correspondent_id 
-		where style_id like #{style_id} 
+		where style_id like #{style.style_id} 
 		or ( 
-				style_name like #{style_name} 
-				or correspondent_name like '${correspondent}' 
-				or style_season like #{style_season}
-				or style_inputname like #{style_inputname} 
-				or style_workplace like #{style_workplace}
+				style_name like #{style.style_name} 
+				or correspondent_name like '${correspondent_name}' 
+				or style_season like #{style.style_season}
+				or style_inputname like #{style.style_inputname} 
+				or style_workplace like #{style.style_workplace}
 			)
 	</select>
 </mapper>

@@ -1,9 +1,9 @@
- <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!-- Style -->
  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -28,7 +28,7 @@ color:white;
 
 </head>
  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
- <a class="nav3" id="aa" >���� ���</a></nav>
+ <a class="nav3" id="aa" >발주 등록</a></nav>
 <body>
 <center>
 
@@ -38,10 +38,10 @@ color:white;
 
  <table class = "table">
   <tr>
-   <td><b>��Ÿ�Ϲ�ȣ</b></td>
+   <td><b>스타일번호</b></td>
    <td align=left>
     <input type=text name=pcategory>
-   <td><b>�ŷ�ó��ȣ</b></td>
+   <td><b>거래처번호</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
@@ -49,12 +49,12 @@ color:white;
   
  
   <tr>
-   <td><b>�����ڵ�</b></td>
+   <td><b>자재코드</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
   
-   <td><b>�����̸�</b></td>
+   <td><b>자재이름</b></td>
    <td align=left>
    <input type=text name=pspec>
    </td>
@@ -64,8 +64,8 @@ color:white;
  
   <tr>
    <td colspan=2 align="center">
-    <button type="button" class="btn btn-info">���</button>
-    <button class="btn btn-danger" onclick="window.close()">���</button>
+    <button type="button" class="btn btn-info">등록</button>
+    <button class="btn btn-danger" onclick="window.close()">취소</button>
    <td>
    </td>
    </td>

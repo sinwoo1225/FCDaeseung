@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fcdaeseung.dao.IMaterialDao;
 import com.fcdaeseung.dao.IStyleDao;
-import com.fcdaeseung.dto.Correspondent;
 import com.fcdaeseung.dto.Material;
 import com.fcdaeseung.dto.Style;
 
@@ -39,9 +38,11 @@ public class FcRestController {
 		Style style, @RequestParam(name = "correspondent_name") String correspondent_name
 	)
 	{	
-		style.setCorrespondent(new Correspondent());
-		style.getCorrespondent().setCorrespondent_name(correspondent_name);
-		List<Style> styleList = styleDao.searchListStyle(style);
+		Map<String,Object> params = new HashMap<>();
+		params.put("style", style);
+		params.put("correspondent_name",correspondent_name);
+		List<Style> styleList = styleDao.searchListStyle(params);
+		
 		Map<String, Object> result = new HashMap<>();
 		result.put("resultSuccese",true);
 		result.put("length",styleList.size());

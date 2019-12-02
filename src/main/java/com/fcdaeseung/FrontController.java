@@ -23,7 +23,7 @@ public class FrontController {
 		String login = (String) session.getAttribute("login");
 		if(login == null)
 			return "redirect:/login";
-		return "main";
+		return "bom";
 	}
 	
 	@GetMapping(path = "/login")
@@ -42,10 +42,10 @@ public class FrontController {
 			return "login";
 		}
 		session.setAttribute("login", "admin");
-		return "redirect:/main";
+		return "redirect:/bom";
 	}  
 	
-	@RequestMapping(path = "/main")
+	@RequestMapping(path = "/bom")
 	public String main(HttpSession session) throws Exception{
 		String login = (String) session.getAttribute("login");
 		if(login == null)
@@ -53,23 +53,15 @@ public class FrontController {
 		return "main";
 	}
 	
-	@RequestMapping(path = "/main2")
+	@RequestMapping(path = "/order")
 	public String main2(HttpSession session) throws Exception{
 		String login = (String) session.getAttribute("login");
 		if(login == null)
 			return "redirect:/login";
-		return "Main2";
+		return "main2";
 	}
 	
-	@RequestMapping(path = "/main3")
-	public String main3(HttpSession session) throws Exception{
-		String login = (String) session.getAttribute("login");
-		if(login == null)
-			return "redirect:/login";
-		return "Main3";
-	}
-	
-	@RequestMapping(path = "/order")
+	@RequestMapping(path = "/enrollorder")
 	public String order() throws Exception{
 		return "order";
 	}
