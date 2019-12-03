@@ -23,7 +23,7 @@
     <a class="navbar-brand mr-3" href="order">발주</a>
     
    <div align= 'right'>
-    <a class="btn btn-primary"  href="login" >Logout</a>
+    <a class="btn btn-primary"  href="logout" >Logout</a>
     </div>
   </nav>
 

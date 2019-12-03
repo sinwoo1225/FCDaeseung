@@ -1,8 +1,11 @@
+const DOMAIN_ADDR = "http://localhost:8080";
+
 const styleTable = document.getElementById("styleTable");
 const materialTable = document.getElementById("materialTable");
 
 const inquiryBtn = document.getElementById("inquiryBtn");
 const resetBtn = document.getElementById("resetBtn");
+const styleDeleteButton = document.getElementById("styleDeleteButton");
 const inquiryInputs = document.querySelectorAll(
   "#inquiryInputTable > tbody > tr > td > input "
 );
@@ -197,9 +200,9 @@ const getStyle = () => {
   const reqParams = getReqParams();
   let URL = ``;
 
-  if (!validate(reqParams)) URL = `http://localhost:8080/style/all`;
+  if (!validate(reqParams)) URL = `${DOMAIN_ADDR}/style/all`;
   else
-    URL = `http://localhost:8080/style?style_id=${reqParams.style_id}&style_name=${reqParams.style_name}&style_workplace=${reqParams.style_workplace}&style_inputname=${reqParams.style_inputname}&style_season=${reqParams.style_season}&correspondent_name=${reqParams.correspondent_name}`;
+    URL = `${DOMAIN_ADDR}/style?style_id=${reqParams.style_id}&style_name=${reqParams.style_name}&style_workplace=${reqParams.style_workplace}&style_inputname=${reqParams.style_inputname}&style_season=${reqParams.style_season}&correspondent_name=${reqParams.correspondent_name}`;
 
   const xhr = new XMLHttpRequest();
   xhr.open("GET", URL);
@@ -214,7 +217,7 @@ const getStyle = () => {
 
 const getMeterialByStyleId = id => {
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", `http://localhost:8080/material?styleId=${id}`);
+  xhr.open("GET", `${DOMAIN_ADDR}/material?styleId=${id}`);
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
       const resJson = JSON.parse(xhr.responseText);
@@ -222,6 +225,33 @@ const getMeterialByStyleId = id => {
     }
   };
   xhr.send();
+};
+
+const deleteStyle = styleIdList => {
+  const xhr = new XMLHttpRequest();
+  xhr.open("DELETE", `${DOMAIN_ADDR}/style`);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const resJson = JSON.parse(xhr.responseText);
+      if (resJson.resultSuccese === true) {
+        const checkedRows = document.querySelectorAll(
+          "#styleTable > tbody > tr > td > input[type=checkbox]:checked"
+        );
+        alert("삭제되었습니다");
+        checkedRows.forEach(element => {
+          element.parentNode.parentNode.parentNode.removeChild(
+            element.parentNode.parentNode
+          );
+        });
+      }
+    }
+  };
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  data = `style_id=`;
+  styleIdList.forEach(element => {
+    data += `${element},`;
+  });
+  xhr.send(data);
 };
 
 const resetInquiryInputs = e => {
@@ -253,9 +283,25 @@ const selectAllMaterialTable = () => {
   });
 };
 
+const handleClickStyleDeleteBtn = e => {
+  const checkedRows = document.querySelectorAll(
+    "#styleTable > tbody > tr > td > input[type=checkbox]:checked"
+  );
+  if (checkedRows.length === 0) alert("삭제할 스타일을 선택해주세요.");
+  else {
+    if (!confirm("정말로 삭제하겠습니까?")) return;
+    const dataArr = [];
+    checkedRows.forEach(element => {
+      dataArr.push(element.parentNode.parentNode.childNodes[2].textContent);
+    });
+    deleteStyle(dataArr);
+  }
+};
+
 const init = () => {
   inquiryBtn.addEventListener("click", handleClickInquiryBtn);
   resetBtn.addEventListener("click", resetInquiryInputs);
+  styleDeleteButton.addEventListener("click", handleClickStyleDeleteBtn);
   styleTableAllCheckbox.addEventListener("click", selectAllStyleTable);
   materialTableAllcheckbox.addEventListener("click", selectAllMaterialTable);
   getStyle();

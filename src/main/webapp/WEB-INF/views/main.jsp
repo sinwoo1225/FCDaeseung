@@ -22,7 +22,7 @@
       <div class="row">
         <button
           class="btn btn-info"
-          onclick="window.open('stylecheck','window_name','width=800,height=600,location=no,status=no,scrollbars=yes');"
+          onclick="window.open('enrollstyle','window_name','width=800,height=600,location=no,status=no,scrollbars=yes');"
         >
           스타일 등록
         </button>
@@ -70,7 +70,9 @@
         </table>
         <button id="inquiryBtn" class="btn btn-success">조회</button>
         <button id="resetBtn" class="btn btn-info margin-left_5">초기화</button>
-        <button class="btn btn-danger margin-left_5">삭제</button>
+        <button id="styleDeleteButton" class="btn btn-danger margin-left_5">
+          삭제
+        </button>
         <button class="btn btn-warning margin-left_5">수정</button>
       </div>
       <div class="row margin-top_20">

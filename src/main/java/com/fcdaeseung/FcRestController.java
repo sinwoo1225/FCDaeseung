@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,19 @@ public class FcRestController {
 		return result;
 	}
 		
+	@DeleteMapping(path="/style")
+	public Map<String,Object> deleteStyle(@RequestParam(value ="style_id") List<String> style_id){
+		int resultNum = 0;
+		for(String id : style_id) {
+			if(styleDao.deleteStyleByStyleId(id) > 0)
+				resultNum++;
+		}
+		Map<String, Object> result = new HashMap<>();
+		result.put("resultSuccese",resultNum > 0 ? true:false );
+		result.put("resultNum",resultNum);
+		return result;
+	}
+	
 	@GetMapping(path="/material")
 	public Map<String, Object> material(
 			@RequestParam(name="styleId") String styleId

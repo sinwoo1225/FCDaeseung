@@ -23,7 +23,7 @@ public class FrontController {
 		String login = (String) session.getAttribute("login");
 		if(login == null)
 			return "redirect:/login";
-		return "bom";
+		return "redirect:/bom";
 	}
 	
 	@GetMapping(path = "/login")
@@ -44,6 +44,12 @@ public class FrontController {
 		session.setAttribute("login", "admin");
 		return "redirect:/bom";
 	}  
+	
+	@GetMapping(path = "/logout")
+	public String logout(HttpSession session) throws Exception{
+		session.removeAttribute("login");
+		return "redirect:/login";
+	}
 	
 	@RequestMapping(path = "/bom")
 	public String main(HttpSession session) throws Exception{
@@ -66,9 +72,9 @@ public class FrontController {
 		return "order";
 	}
 	
-	@RequestMapping(path = "/stylecheck")
+	@RequestMapping(path = "/enrollstyle")
 	public String stylecheck() throws Exception{
-		return "stylecheck";
+		return "enrollstyle";
 	}
 	
 	@RequestMapping(path = "/stylematerial")

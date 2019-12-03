@@ -46,5 +46,9 @@
 				or style_workplace like #{style.style_workplace}
 			)
 	</select>
+	
+	<delete id="deleteStyleByStyleId">
+		delete from style where style_id like #{style_id};
+	</delete>
 </mapper>
 
