@@ -47,6 +47,14 @@
 			)
 	</select>
 	
+	<insert id="insertStyle">
+		insert into style values(#{style_id}, #{style_name},
+							#{correspondent_id},#{style_orderdate},
+							#{style_deliverydate},#{style_season},
+							#{style_quantity},#{style_price},
+							#{style_workplace},#{style_inputname},now())
+	</insert>
+	
 	<delete id="deleteStyleByStyleId">
 		delete from style where style_id like #{style_id};
 	</delete>

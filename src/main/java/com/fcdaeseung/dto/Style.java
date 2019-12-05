@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class Style {
-	
 	private String style_id;
 	private String style_name;
 	private String correspondent_id;

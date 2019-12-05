@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fcdaeseung.dao.ICorrespondentDao;
 import com.fcdaeseung.dao.IMaterialDao;
 import com.fcdaeseung.dao.IStyleDao;
+import com.fcdaeseung.dto.Correspondent;
 import com.fcdaeseung.dto.Material;
 import com.fcdaeseung.dto.Style;
 
@@ -23,6 +26,8 @@ public class FcRestController {
 	IStyleDao styleDao;
 	@Autowired
 	IMaterialDao materialDao;
+	@Autowired
+	ICorrespondentDao correspondentDao;
 	
 	@GetMapping(path="/style/all")
 	public Map<String, Object> styleAll() {
@@ -50,7 +55,15 @@ public class FcRestController {
 		result.put("styleList", styleList);
 		return result;
 	}
-		
+	
+	@PostMapping(path="/style")
+	public Map<String,Object> postStyle(Style style){
+		Map<String,Object> result = new HashMap<>();
+		int resultNum = styleDao.insertStyle(style);
+		result.put("resultSuccese",resultNum>0? true:false);
+		return result;
+	}
+	
 	@DeleteMapping(path="/style")
 	public Map<String,Object> deleteStyle(@RequestParam(value ="style_id") List<String> style_id){
 		int resultNum = 0;
@@ -80,4 +93,21 @@ public class FcRestController {
 		result.put("styleList", materialList);
 		return result;
 	}
+	
+	@GetMapping(path ="/correspondent")
+	public Map<String,Object> correspondent(
+			@RequestParam(name="correspondent_name") String correspondent_name
+	){
+		List<Correspondent> correspondentList = correspondentDao.listCorrespondentByCorrespondentName(correspondent_name);
+		Map<String, Object> result = new HashMap<>();
+		if(correspondentList == null) {
+			result.put("resultSuccese",false);
+			return result;
+		}
+		result.put("resultSuccese",true);
+		result.put("length",correspondentList.size());
+		result.put("correspondentList", correspondentList);
+		return result;
+	}
+	
 }
